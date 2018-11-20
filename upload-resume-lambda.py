@@ -6,6 +6,7 @@ import mimetypes
 import datetime
 
 def lambda_handler(event, context):
+    print("in lambda_handler")
     sns = boto3.resource('sns')
     topic = sns.Topic('arn:aws:sns:ca-central-1:548331012494:ResBuiildEmail')
 
@@ -47,10 +48,13 @@ def lambda_handler(event, context):
         currentDT = datetime.datetime.now()
         topic.publish(Subject='Deployment done', Message='ResumeBuild deployed @' + str(currentDT))
 
+        print("sent notification")
         if job:
             print("job id:" + job["id"])
             codepipeline = boto3.client("codepipeline")
+            print("sending codepipeline success result")
             codepipeline.put_job_success_result(jobId=job["id"])
+            print("sent codepipeline success result")
     except:
         print("error occurred in lambda. sending notification")
         currentDT = datetime.datetime.now()
