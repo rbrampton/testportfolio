@@ -9,3 +9,9 @@ html
 class
 font awesome
 google fonts
+awe
+iam
+route53
+cloudfront
+certificate manager
+s3
