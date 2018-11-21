@@ -11,3 +11,4 @@ artifacts:
     - styles/main.css
     - images/*
     - babel.html
+    - react.html
