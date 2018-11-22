@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>React demo</title>
     <script src="https://unpkg.com/babel-standalone"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mocha@5.2.0/mocha.css" />
     <style media="screen">
       .messageBox {
         border: 1px solid;
@@ -30,8 +31,11 @@
   <body>
     <main id="content">
     </main>
+    <div id="mocha" />
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/chai@4.2.0/chai.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
     <script type="text/babel" data-presets="react">
       class NameInput extends React.Component {
         constructor(props) {
@@ -64,7 +68,7 @@
           return (
             <div>
               <label>Name: <input ref="nameInput" type="text" /></label>
-              <button type="submit" name="button" onClick={this.buttonClicked}
+              <button type="submit" name="button" id="inputButton" onClick={this.buttonClicked}
                 >Click me!</button>
 
               <MessageBox type={msg.type} message={msg.body}/>
@@ -76,7 +80,7 @@
       class MessageBox extends React.Component {
         render() {
           return (
-            <div className={"messageBox " + (this.props.type || "hidden")}>
+            <div id="mBoxId" className={"messageBox " + (this.props.type || "hidden")}>
               {this.props.message}
             </div>
           )
@@ -86,6 +90,51 @@
       //jsx
         ReactDOM.render(<NameInput/>,
           document.getElementById("content"));
+    </script>
+    <script type="text/babel" presets="react">
+      const assert = chai.assert;
+
+      assert.equal(5, 3+2, "Math api works");
+      assert.notEqual(5, 3+3  , "Math api works - not equal failure test");
+      mocha.ui("bdd");
+      mocha.reporter("html");
+      describe("Example tests", () => {
+        it("Prove that math works", () => {
+          assert.equal(5, 3+2, "Equal test");
+          assert.notEqual(5, 3+3, "Not Equal test");
+        });
+
+        it("found our component", () => {
+          assert.isDefined(MessageBox, "Message box is defined");
+        });
+
+        it ("let us test a function", () => {
+          let testName = "Rahul";
+          const greet = (name) => "Hello, " + testName + "!";
+          assert.include(greet(testName), testName, "Greeting includes name");
+        });
+      });
+
+      describe("Test react.html functions", () => {
+        it("Rendered empty message box", () => {
+          let msgBox = document.getElementById("mBoxId");
+
+          assert.isDefined(msgBox, "message box is defined")
+          assert.include(msgBox.classList.value, "hidden", "message box is hidden")
+          assert.equal(msgBox.innertText, undefined, "message box is empty");
+        });
+
+        it("Name empty test", () => {
+          let msgBox = document.getElementById("mBoxId");
+          let button = document.getElementById("inputButton");
+          button.click();
+          assert.include(msgBox.classList.value, "error", "message box is error")
+        });
+      });
+
+
+      mocha.run();
+
     </script>
   </body>
 </html>
