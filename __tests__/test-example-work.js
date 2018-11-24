@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 import ExampleWork, {ExampleWorkBubble} from '../js/example-work'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
-
 Enzyme.configure({adapter: new Adapter()});
 
 const myWork = [
@@ -26,14 +24,22 @@ describe("Example ExampleWorkBubble component", () => {
       expect(images.prop('src')).toEqual(myWork[0].image.src);
       // expect(5).toEqual(6);
   });
+
+  it ("Should allow the modal to open and close", () => {
+    // component.instance().openModal();
+    // expect(component.dive().instance().state.modalOpen).toBe(true);
+    //
+    // component.instance().closeModal();
+    // expect(component.instance().state.modalOpen).toBe(false);
+  });
 });
 
 describe("ExampleWork component", () => {
   let component = shallow(<ExampleWork work={myWork} />);
 
-  it("Should be a section element", () => {
+  it("Should be a span element", () => {
 //    console.log(component.debug());
-    expect(component.type()).toEqual('section');
+    expect(component.type()).toEqual('span');
   });
 
   it("Should contain as many children as there are example works", () => {
