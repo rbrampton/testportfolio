@@ -24,7 +24,7 @@ describe("Example ExampleWorkBubble component", () => {
   it ("should contain a single image element ", () => {
       expect(images.length).toEqual(1);
       expect(images.prop('src')).toEqual(myWork[0].image.src);
-      expect(5).toEqual(6);
+      // expect(5).toEqual(6);
   });
 });
 
