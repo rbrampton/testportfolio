@@ -18,26 +18,26 @@ const myWork = [
   }
 ];
 
+describe("Example ExampleWorkBubble component", () => {
+  let component = shallow(<ExampleWorkBubble example={myWork[0]} />);
+  let images = component.find("img");
+  it ("should contain a single image element ", () => {
+      expect(images.length).toEqual(1);
+      expect(images.prop('src')).toEqual(myWork[0].image.src);
+      expect(5).toEqual(6);
+  });
+});
+
 describe("ExampleWork component", () => {
   let component = shallow(<ExampleWork work={myWork} />);
 
   it("Should be a section element", () => {
 //    console.log(component.debug());
     expect(component.type()).toEqual('section');
-  })
+  });
 
   it("Should contain as many children as there are example works", () => {
     expect(component.find("ExampleWorkBubble").length).toEqual(myWork.length);
-  })
-
-});
-
-describe("Example ExampleWorkBubble component", () => {
-  let component = shallow(<ExampleWorkBubble example={myWork[0]} />);
-  let images = component.find("img");
-  if ("should contain a single image element ", () => {
-      expect(images.length).toEqual(1);
-      expect(images.node.props.src).toEqual(myWork[0].image.src);
-      expect(5).toEqual(6);
   });
+
 });
