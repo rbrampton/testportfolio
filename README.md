@@ -15,3 +15,9 @@ route53
 cloudfront
 certificate manager
 s3
+
+testing frameworks
+chai
+mocha
+jest
+enzyme
